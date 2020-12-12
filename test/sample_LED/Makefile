@@ -1,21 +1,25 @@
 CFLAGS = -Wall
-OBJECTS = sample01.o sample02.o sample02-2.o
-BINARIES = sample01 libsample02.so sample02-2
+OBJECTS = 04.o 05_lib.o 05.o
+LIBRARIES = lib05_lib.so
+BINARIES = 04 05
 
-INCLUDE_DIR = ../../../include
-LIBRARY_DIR = ../../../lib
-LIBRARY = $(LIBRARY_DIR)/librgbmatrix.a
-LDFLAGS += -L$(LIBRARY_DIR) -lrgbmatrix -lrt -lm -lpthread
+LED_INCLUDE_DIR = ../../../include
+LED_LIBRARY_DIR = ../../../lib
+LED_LIBRARY = $(LED_LIBRARY_DIR)/librgbmatrix.a
+LED_FLAGS  += -L$(LED_LIBRARY_DIR) -lrgbmatrix -lrt -lm -lpthread -lstdc++
+LIBFLAGS   += -fPIC -shared
 
-sample01 : sample01.o $(LIBRARY)
-	$(CC) $< -o $@ $(LDFLAGS) -lstdc++
+all : $(BINARIES)
 
-sample02 : sample02.o sample02-2.o $(LIBRARY)
-	$(CC) -fPIC -shared $< -o lib$@.so $(LDFLAGS) -lstdc++
-	$(CC) sample02-2.o -o sample02-2 $(LDFLAGS) -lstdc++ -L./ -lsample02
+04 : 04.o $(LED_LIBRARY)
+	$(CC) $< -o $@ $(LED_FLAGS)
+
+05 : 05_lib.o 05.o $(LED_LIBRARY)
+	$(CC) $(LIBFLAGS) $< -o lib05_lib.so $(LED_FLAGS)
+	$(CC) 05.o -o $@ $(LED_FLAGS) -L./ -l05_lib
 
 %.o : %.c
-	$(CC) -I$(INCLUDE_DIR) $(CFLAGS) -c -o $@ $<
+	$(CC) -I$(LED_INCLUDE_DIR) $(CFLAGS) -c -o $@ $<
 
 clean :
-	rm -f $(OBJECTS) $(BINARIES)
+	rm -f $(OBJECTS) $(BINARIES) $(LIBRARIES)
