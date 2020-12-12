@@ -9,7 +9,10 @@ LED_LIBRARY = $(LED_LIBRARY_DIR)/librgbmatrix.a
 LED_FLAGS  += -L$(LED_LIBRARY_DIR) -lrgbmatrix -lrt -lm -lpthread -lstdc++
 LIBFLAGS   += -fPIC -shared
 
-all : $(BINARIES)
+CLASS_PATH  = -cp .:jna.jar
+CLASSES = Sample03.class
+
+all : 01 02 03
 
 01 : 01.o $(LED_LIBRARY)
 	$(CC) $< -o $@ $(LED_FLAGS)
@@ -18,8 +21,13 @@ all : $(BINARIES)
 	$(CC) $(LIBFLAGS) $< -o lib02_lib.so $(LED_FLAGS)
 	$(CC) 02.o -o $@ $(LED_FLAGS) -L./ -l02_lib
 
+03 : 02 Sample03.class
+
 %.o : %.c
 	$(CC) -I$(LED_INCLUDE_DIR) $(CFLAGS) -c -o $@ $<
 
+%.class : %.java
+	javac $(CLASS_PATH) $<
+
 clean :
-	rm -f $(OBJECTS) $(BINARIES) $(LIBRARIES)
+	rm -f $(OBJECTS) $(BINARIES) $(LIBRARIES) *.class
