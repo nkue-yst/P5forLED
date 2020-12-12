@@ -7,7 +7,7 @@ LIBFLAGS += -fPIC -shared
 CLASSPATH = -cp .:jna.jar
 CLASSES   = 03.class
 
-all : 01 02 03
+all : 01 02 03 04
 
 01 : 01_lib.o
 	$(CC) $(CFLAGS) $(LIBFLAGS) $< -o lib01_lib.so
@@ -17,6 +17,9 @@ all : 01 02 03
 
 03 : 01 Sample03.class
 
+04 : Sample_Processing01/Sample04.class
+	jar cvf Sample_Processing01/Sample04.jar Sample_Processing01/Sample04.class
+
 %.o : %.c
 	$(CC) -I$(LED_INCLUDE_DIR) $(CFLAGS) -c -o $@ $<
 
@@ -25,3 +28,4 @@ all : 01 02 03
 
 clean :
 	rm -f $(BINARIES) *.class *.so *.o
+	rm -f Sample_Processing01/*.class Sample_Processing01/*.jar
