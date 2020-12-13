@@ -1,19 +1,25 @@
 CFLAGS    = -Wall
-OBJECTS   = SimpleIO.o
+OBJECTS   = *.o
 LIBRARIES = *.so
 BINARIES  = 
 LIBFLAGS += -fPIC -shared
-JNI_DIR   = /usr/lib/jvm/java-1.8.0-openjdk-armhf/include
-JNI_DIR2  = /usr/lib/jvm/java-1.8.0-openjdk-armhf/include/linux
+JNI_INCLUDE   = -I/usr/lib/jvm/java-1.8.0-openjdk-armhf/include -I/usr/lib/jvm/java-1.8.0-openjdk-armhf/include/linux
 
-all : SimpleIO
+all : SimpleIO Multiply
 
 SimpleIO : SimpleIO.o
 	$(CXX) $(LIBFLAGS) -o lib$@.so $<
-	javac SimpleIO.java
+	javac $@.java
+
+Multiply : Multiply.o
+	$(CXX) $(LIBFLAGS) -o lib$@.so $<
+	javac $@.java
 
 %.o : %.cpp
-	$(CXX) $(CFLAGS) $(LIBFLAGS) -I$(JNI_DIR) -I$(JNI_DIR2) -o $@ $<
+	$(CXX) $(CFLAGS) $(LIBFLAGS) $(JNI_INCLUDE) -o $@ $<
 
 clean :
 	rm -f $(BINARIES) *.class $(LIBRARIES) $(OBJECTS)
+
+# Execution
+# $ LD_LIBRARY_PATH=. java Hoge
