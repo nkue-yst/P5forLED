@@ -14,8 +14,8 @@ Demo : Demo.o
 
 Test : Test.o
 	$(CXX) $< $(LED_LIBRARY) $(LED_FLAGS) -o lib$@.so $(LIB_FLAGS)
-	javac Test.java
-	sudo LD_LIBRARY_PATH=. java Test
+	#javac Test.java
+	#sudo LD_LIBRARY_PATH=. java Test
 
 CPP_Test : CPP_Test.o CPP_Test_User.o
 	$(CXX) CPP_Test.o $(LED_LIBRARY) -o lib$@.so $(LIB_FLAGS) $(LED_FLAGS)
