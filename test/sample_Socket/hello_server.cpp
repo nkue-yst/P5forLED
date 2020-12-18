@@ -15,7 +15,7 @@ int main()
     sock = socket(AF_INET, SOCK_STREAM, 0);
 
     addr.sin_family = AF_INET;
-    addr.sin_port   = htons(1234);
+    addr.sin_port   = htons(12345);
     addr.sin_addr.s_addr = INADDR_ANY;
     
     bind(sock, (struct sockaddr*)&addr, sizeof(addr));
@@ -24,7 +24,7 @@ int main()
     len = sizeof(client);
     sock_rcv = accept(sock, (struct sockaddr*)&client, &len);
 
-    write(sock_rcv, "Hello", 5);
+    send(sock_rcv, "Hello", 5, 0);
 
     close(sock_rcv);
     close(sock);
