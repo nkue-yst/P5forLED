@@ -24,7 +24,7 @@ int main()
     len = sizeof(client);
     sock_rcv = accept(sock, (struct sockaddr*)&client, &len);
 
-    send(sock_rcv, "Hello", 5, 0);
+    write(sock_rcv, "Hello", 5);
 
     close(sock_rcv);
     close(sock);
