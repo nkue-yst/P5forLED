@@ -2,8 +2,7 @@ CXXFLAGS = -Wall
 OBJECTS  = Server.o
 BINARIES = Server
 INCLUDE_DIR = -I../../include/server
-LIBRARY_DIR = -L../../lib/server
-LIBRARY = -lLED
+LIBRARY = -lP5forLED
 
 LED_INCLUDE_DIR = -I../../../include
 LED_FLAGS   = -lrt -lm -lpthread -lstdc++

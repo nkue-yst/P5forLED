@@ -1,5 +1,5 @@
 CXXFLAGS = -Wall
-OBJECTS  = test.o LEDManager.o
+OBJECTS  = test.o LEDManager.o Socket.o
 BINARIES = test
 
 INCLUDE_DIR = -I../../../include/server
@@ -15,13 +15,13 @@ all : $(OBJECTS) $(BINARIES)
 install : lib
 	sudo mv ../libP5forLED.so /usr/lib/
 
-uninstall :
+uninstall : clean
 	sudo rm -f /usr/lib/libP5forLED.so
 
-lib : LEDManager.o
+lib : LEDManager.o Socket.o
 	$(CXX) $^ $(LED_LIBRARY) $(LED_FLAGS) $(LIB_FLAGS) -o ../libP5forLED.so
 
-test : test.o LEDManager.o
+test : $(OBJECTS)
 	$(CXX) $^ $(LED_LIBRARY) $(LED_FLAGS) -o $@
 
 %.o : %.cpp

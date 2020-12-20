@@ -1,12 +1,15 @@
 #include "LEDManager.hpp"
+#include "Socket.hpp"
 #include <iostream>
 #include <unistd.h>
 
 using p5led::LEDManager;
+using p5led::Socket;
 
 /***** Simple LED test *****/
 int main()
 {
+    Socket *socket = new Socket();
     LEDManager *led = new LEDManager();
     char c;
     int r = 0;

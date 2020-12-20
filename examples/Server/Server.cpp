@@ -6,42 +6,43 @@
  *****/
 
 #include "LEDManager.hpp"
+#include "Socket.hpp"
 #include <iostream>
 #include <unistd.h>
 
 using p5led::LEDManager;
+using p5led::Socket;
 
 /***** Simple LED test *****/
 int main()
 {
     LEDManager *led = new LEDManager();
-    char c;
-    int r = 0;
-    int g = 0;
-    int b = 0;
+    Socket *socket  = new Socket();
 
-    while (1)
+    char c = 'r';
+
+    while (c != 'e')
     {
-        std::cin >> c;
+        socket->Listen();
+        c = socket->ReadChar();
+
         switch (c)
         {
         case 'r':
-            r += 10;
+            led->Fill(255, 0, 0);
             break;
         case 'g':
-            g += 10;
+            led->Fill(0, 255, 0);
             break;
         case 'b':
-            b += 10;
+            led->Fill(0, 0, 255);
             break;
         default:
-            r = g = b = 0;
+            led->Fill(255, 255, 255);
         }
-        led->Fill(r, g, b);
         led->Update();
     }
 
-    sleep(3);
     delete led;
     return 0;
 }
