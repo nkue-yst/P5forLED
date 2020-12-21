@@ -13,9 +13,9 @@ LED_FLAGS   = -lrt -lm -lpthread -lstdc++
 all : $(OBJECTS) $(BINARIES)
 
 install : lib
-	sudo mv ../libP5forLED.so /usr/lib/
+	sudo cp ../libP5forLED.so /usr/lib/
 
-uninstall : clean
+uninstall : 
 	sudo rm -f /usr/lib/libP5forLED.so
 
 lib : LEDManager.o Socket.o
@@ -27,5 +27,5 @@ test : $(OBJECTS)
 %.o : %.cpp
 	$(CXX) $(CXXFLAGS) $< $(INCLUDE_DIR) $(LED_INCLUDE_DIR) -c -o $@
 
-clean :
+clean : 
 	rm -f $(OBJECTS) $(BINARIES) ../*.so
