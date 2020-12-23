@@ -1,11 +1,13 @@
 /*****
  * LEDManager.hpp
- * 2020/12/20
+ * 2020/12/23
  * 
  * Copyright (C) 2020 Yoshito Nakaue.
  *****/
 
 #include "led-matrix.h"
+#include "Socket.hpp"
+#include <iostream>
 
 namespace p5led
 {
@@ -15,10 +17,27 @@ namespace p5led
         LEDManager(int brightness = 50);
         ~LEDManager();
 
+        void run()
+        {
+            while (1)
+            {
+                socket_->Listen();
+                switch (socket_->ReadChar())
+                {
+                case 'F':
+                    Fill();
+                    Update();
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+
         /**
          * Fill LED with single color
          **/
-        void Fill(const uint8_t red, const uint8_t green, const uint8_t blue);
+        void Fill();
 
         /**
          * Set pixel color
@@ -34,5 +53,7 @@ namespace p5led
     private:
         rgb_matrix::RGBMatrix *matrix_;
         rgb_matrix::FrameCanvas *off_canvas_;
+
+        Socket *socket_;
     };
 }

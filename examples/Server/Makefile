@@ -1,6 +1,6 @@
 CXXFLAGS = -Wall
-OBJECTS  = Server.o
-BINARIES = Server
+OBJECTS  = LED_Server.o
+BINARIES = LED_Server
 INCLUDE_DIR = -I../../include/server
 LIBRARY = -lP5forLED
 
@@ -9,7 +9,7 @@ LED_FLAGS   = -lrt -lm -lpthread -lstdc++
 
 all : $(BINARIES)
 
-Server : Server.o
+LED_Server : LED_Server.o
 	$(CXX) $< $(LIBRARY_DIR) $(LIBRARY) $(LED_FLAGS) -o $@
 
 %.o : %.cpp

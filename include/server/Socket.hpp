@@ -1,6 +1,6 @@
 /*****
  * Socket.hpp
- * 2020/12/21
+ * 2020/12/23
  * 
  * Copyright (C) 2020 Yoshito Nakaue.
  *****/
@@ -24,6 +24,11 @@ namespace p5led
          * Read characters from client
          **/
         char ReadChar();
+
+        /**
+         * Read integer from client
+         **/
+        int ReadInteger();
 
     private:
         struct sockaddr_in addr_;
