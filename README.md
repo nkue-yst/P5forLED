@@ -17,3 +17,44 @@ $ sudo ./LED_Server
 $ cd examples/Client/
 $ java -cp .:p5led.jar LED_Client
 ```
+6. Check tree
+```bash
+$ tree
+.
+├── LICENSE
+├── Makefile
+├── README.md
+├── examples
+│   ├── Client
+│   │   ├── LED_Client.class
+│   │   ├── LED_Client.java
+│   │   ├── Makefile
+│   │   └── p5led.jar
+│   └── Server
+│       ├── LED_Server
+│       ├── LED_Server.cpp
+│       ├── LED_Server.o
+│       └── Makefile
+├── include
+│   └── server
+│       ├── LEDManager.hpp
+│       └── Socket.hpp
+└── lib
+    ├── client
+    │   ├── p5led
+    │   │   └── client
+    │   │       └── Client.class
+    │   ├── p5led.jar
+    │   └── src
+    │       ├── Client.java
+    │       └── Makefile
+    └── server
+        ├── libP5forLED.so
+        └── src
+            ├── LEDManager.cpp
+            ├── LEDManager.o
+            ├── Makefile
+            ├── Socket.cpp
+            ├── Socket.o
+            └── test.cpp
+```
