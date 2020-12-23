@@ -7,17 +7,7 @@
 $ cd P5forLED
 $ make
 ```
-4. Run server program
-```Bash
-$ cd examples/Server/
-$ sudo ./LED_Server
-```
-5. Run client program
-```bash
-$ cd examples/Client/
-$ java -cp .:p5led.jar LED_Client
-```
-6. Check tree
+4. Check tree
 ```bash
 $ tree
 .
@@ -57,4 +47,15 @@ $ tree
             ├── Socket.cpp
             ├── Socket.o
             └── test.cpp
+```
+
+5. Run server program
+```Bash
+$ cd examples/Server/
+$ sudo ./LED_Server
+```
+6. Run client program
+```bash
+$ cd examples/Client/
+$ java -cp .:p5led.jar LED_Client
 ```
