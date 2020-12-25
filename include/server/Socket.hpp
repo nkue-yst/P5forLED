@@ -1,6 +1,6 @@
 /*****
  * Socket.hpp
- * 2020/12/23
+ * 2020/12/25
  * 
  * Copyright (C) 2020 Yoshito Nakaue.
  *****/
@@ -39,6 +39,6 @@ namespace p5led
         int port_;
         socklen_t length_;
 
-        char rcv_buf_[1024];
+        char rcv_buf_[2048];
     };
 }

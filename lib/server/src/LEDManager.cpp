@@ -34,16 +34,26 @@ namespace p5led
 
     void LEDManager::Fill()
     {
-        uint8_t red   = socket_->ReadInteger();
-        uint8_t green = socket_->ReadInteger();
-        uint8_t blue  = socket_->ReadInteger();
+        int32_t red   = socket_->ReadInteger();
+        int32_t green = socket_->ReadInteger();
+        int32_t blue  = socket_->ReadInteger();
+
+        std::cout << "Fill() -> red:" << red << ", green:" << green << ", blue:" << blue << std::endl;
 
         off_canvas_->Fill(red, green, blue);
     }
 
-    void LEDManager::SetPixel(const int x, const int y,
-                                const uint8_t red, const uint8_t green, const uint8_t blue)
+    void LEDManager::SetPixel()
     {
+        int32_t x = socket_->ReadInteger();
+        int32_t y = socket_->ReadInteger();
+        int32_t red   = socket_->ReadInteger();
+        int32_t green = socket_->ReadInteger();
+        int32_t blue  = socket_->ReadInteger();
+
+        std::cout << "SetPixel() -> x:" << x << ", y:" << y << ", red:" << red
+                  << ", green:" << green << ", blue:" << blue << std::endl;
+
         off_canvas_->SetPixel(x, y, red, green, blue);
     }
 

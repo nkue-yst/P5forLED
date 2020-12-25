@@ -1,6 +1,6 @@
 /*****
  * LEDManager.hpp
- * 2020/12/23
+ * 2020/12/25
  * 
  * Copyright (C) 2020 Yoshito Nakaue.
  *****/
@@ -26,11 +26,14 @@ namespace p5led
                 {
                 case 'F':
                     Fill();
-                    Update();
+                    break;
+                case 'S':
+                    SetPixel();
                     break;
                 default:
                     break;
                 }
+                Update();
             }
         }
 
@@ -42,8 +45,7 @@ namespace p5led
         /**
          * Set pixel color
          **/
-        void SetPixel(const int x, const int y,
-                        const uint8_t red, const uint8_t green, const uint8_t blue);
+        void SetPixel();
 
         /**
          * Update matrix

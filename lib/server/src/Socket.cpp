@@ -1,6 +1,6 @@
 /*****
  * Socket.cpp
- * 2020/12/23
+ * 2020/12/25
  * 
  * Copyright (C) 2020 Yoshito Nakaue.
  *****/
@@ -59,7 +59,7 @@ namespace p5led
 
     int Socket::ReadInteger()
     {
-        read(sock_rcv_, rcv_buf_, sizeof(int));
+        read(sock_rcv_, rcv_buf_, sizeof(int32_t));
 
         return rcv_buf_[0];
     }
