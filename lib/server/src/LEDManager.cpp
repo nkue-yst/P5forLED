@@ -1,6 +1,6 @@
 /*****
  * LEDManager.cpp
- * 2020/12/23
+ * 2021/01/20
  * 
  * Copyright (C) 2020 Yoshito Nakaue.
  *****/
@@ -34,9 +34,9 @@ namespace p5led
 
     void LEDManager::Fill()
     {
-        int32_t red   = socket_->ReadInteger();
-        int32_t green = socket_->ReadInteger();
-        int32_t blue  = socket_->ReadInteger();
+        int16_t red   = socket_->ReadShort();
+        int16_t green = socket_->ReadShort();
+        int16_t blue  = socket_->ReadShort();
 
         std::cout << "Fill() -> red:" << red << ", green:" << green << ", blue:" << blue << std::endl;
 
@@ -45,11 +45,11 @@ namespace p5led
 
     void LEDManager::SetPixel()
     {
-        int32_t x = socket_->ReadInteger();
-        int32_t y = socket_->ReadInteger();
-        int32_t red   = socket_->ReadInteger();
-        int32_t green = socket_->ReadInteger();
-        int32_t blue  = socket_->ReadInteger();
+        int16_t x = socket_->ReadShort();
+        int16_t y = socket_->ReadShort();
+        int16_t red   = socket_->ReadShort();
+        int16_t green = socket_->ReadShort();
+        int16_t blue  = socket_->ReadShort();
 
         std::cout << "SetPixel() -> x:" << x << ", y:" << y << ", red:" << red
                   << ", green:" << green << ", blue:" << blue << std::endl;

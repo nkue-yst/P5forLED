@@ -1,6 +1,6 @@
 /*****
  * LEDManager.hpp
- * 2020/12/25
+ * 2021/01/02
  * 
  * Copyright (C) 2020 Yoshito Nakaue.
  *****/
@@ -19,9 +19,10 @@ namespace p5led
 
         void run()
         {
+            socket_->Listen();
+            
             while (1)
             {
-                socket_->Listen();
                 switch (socket_->ReadChar())
                 {
                 case 'F':

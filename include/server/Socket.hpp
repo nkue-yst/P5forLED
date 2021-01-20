@@ -1,6 +1,6 @@
 /*****
  * Socket.hpp
- * 2020/12/25
+ * 2021/01/20
  * 
  * Copyright (C) 2020 Yoshito Nakaue.
  *****/
@@ -12,7 +12,7 @@ namespace p5led
     class Socket
     {
     public:
-        Socket(const int port = 12345);
+        Socket(const int port = 13579);
         ~Socket();
 
         /**
@@ -28,7 +28,7 @@ namespace p5led
         /**
          * Read integer from client
          **/
-        int ReadInteger();
+        int16_t ReadShort();
 
     private:
         struct sockaddr_in addr_;
@@ -39,6 +39,7 @@ namespace p5led
         int port_;
         socklen_t length_;
 
-        char rcv_buf_[2048];
+    public:
+        int16_t rcv_buf_[16*3*32*32+32*32];
     };
 }

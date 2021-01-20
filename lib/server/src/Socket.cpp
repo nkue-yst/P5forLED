@@ -1,6 +1,6 @@
 /*****
  * Socket.cpp
- * 2020/12/25
+ * 2021/01/20
  * 
  * Copyright (C) 2020 Yoshito Nakaue.
  *****/
@@ -9,6 +9,8 @@
 #include <iostream>
 #include <cstring>
 #include <unistd.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 
@@ -46,20 +48,20 @@ namespace p5led
         length_ = sizeof(client_);
         sock_rcv_ = accept(sock_, (struct sockaddr*)&client_, &length_);
 
-        std::cout << "Recerived from " << client_.sin_addr.s_addr
-                    << "(" << client_.sin_port << ")" << std::endl;
+        std::cout << "Connected to " << inet_ntoa(client_.sin_addr)
+                    << "(" << ntohs(client_.sin_port) << ")" << std::endl;
     }
 
     char Socket::ReadChar()
     {
-        read(sock_rcv_, rcv_buf_, sizeof(char));
+        read(sock_rcv_, rcv_buf_, sizeof(char16_t));
 
         return rcv_buf_[0];
     }
 
-    int Socket::ReadInteger()
+    int16_t Socket::ReadShort()
     {
-        read(sock_rcv_, rcv_buf_, sizeof(int32_t));
+        read(sock_rcv_, rcv_buf_, sizeof(int16_t));
 
         return rcv_buf_[0];
     }
