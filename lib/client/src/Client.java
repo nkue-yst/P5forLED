@@ -1,6 +1,6 @@
 /*****
  * Client.java
- * 2021/01/20
+ * 2021/02/04
  * 
  * Copyright (C) 2020 Yoshito Nakaue.
  *****/
@@ -10,7 +10,9 @@ package p5led.client;
 import java.io.DataOutputStream;
 import java.net.Socket;
 
-public class Client {
+import processing.core.*;
+
+public class Client extends PApplet {
     public Client(String ip_address, Integer port_number) {
         addr = ip_address;
         port = port_number;
@@ -51,6 +53,23 @@ public class Client {
             out.writeShort((short)red);
             out.writeShort((short)green);
             out.writeShort((short)blue);
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void DrawFromP5() {
+        updatePixels();
+        loadPixels();
+
+        try {
+            DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+            dos.writeChar('D');
+            for (int i = 0; i < 32 * 32; i++) {
+                dos.writeShort((short)red(pixels[i]));
+                dos.writeShort((short)green(pixels[i]));
+                dos.writeShort((short)blue(pixels[i]));
+            }
         } catch (Exception e) {
 
         }

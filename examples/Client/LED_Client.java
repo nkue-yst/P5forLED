@@ -13,9 +13,6 @@ public class LED_Client {
 
         led.Shobon();
 
-        //led.SetPixel(5, 5, 0, 255, 0);
-	    //led.SetPixel(16, 5,   0, 255,   0);
-
         led.closeSocket();
     }
 }

@@ -14,7 +14,7 @@ uninstall :
 Client : Client.class
 
 %.class : %.java
-	javac $< -d ../
+	javac -cp /usr/local/lib/processing-3.5.3/core/library/core.jar $< -d ../
 
 clean :
 	rm -rf ../p5led

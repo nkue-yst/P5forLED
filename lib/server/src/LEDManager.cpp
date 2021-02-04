@@ -10,9 +10,10 @@
 
 namespace p5led
 {
-    LEDManager::LEDManager(int brightness)
+    LEDManager::LEDManager(int brightness, bool debug)
         : matrix_(nullptr)
         , off_canvas_(nullptr)
+        , debug_(debug)
         , socket_(nullptr)
     {
         rgb_matrix::RGBMatrix::Options options;
@@ -34,27 +35,51 @@ namespace p5led
 
     void LEDManager::Fill()
     {
-        int16_t red   = socket_->ReadShort();
-        int16_t green = socket_->ReadShort();
-        int16_t blue  = socket_->ReadShort();
+        int16_t R   = socket_->ReadShort();
+        int16_t G = socket_->ReadShort();
+        int16_t B  = socket_->ReadShort();
 
-        std::cout << "Fill() -> red:" << red << ", green:" << green << ", blue:" << blue << std::endl;
+        if (debug_)
+        {
+            std::cout << "Fill() -> R:" << R << ", G:" << G << ", B:" << B << std::endl;
+        }
 
-        off_canvas_->Fill(red, green, blue);
+        off_canvas_->Fill(R, G, B);
     }
 
     void LEDManager::SetPixel()
     {
         int16_t x = socket_->ReadShort();
         int16_t y = socket_->ReadShort();
-        int16_t red   = socket_->ReadShort();
-        int16_t green = socket_->ReadShort();
-        int16_t blue  = socket_->ReadShort();
+        int16_t R   = socket_->ReadShort();
+        int16_t G = socket_->ReadShort();
+        int16_t B  = socket_->ReadShort();
 
-        std::cout << "SetPixel() -> x:" << x << ", y:" << y << ", red:" << red
-                  << ", green:" << green << ", blue:" << blue << std::endl;
+        if (debug_)
+        {
+            std::cout << "SetPixel() -> x:" << x << ", y:" << y << ", R:" << R
+                  << ", G:" << G << ", B:" << B << std::endl;
+        }
 
-        off_canvas_->SetPixel(x, y, red, green, blue);
+        off_canvas_->SetPixel(x, y, R, G, B);
+    }
+
+    void LEDManager::DrawFromP5()
+    {
+        int16_t R = 0;
+        int16_t G = 0;
+        int16_t B = 0;
+
+        for (int y = 0; y < 32; y++)
+        {
+            for (int x = 0; x < 32; x++)
+            {
+                R = socket_->ReadShort();
+                G = socket_->ReadShort();
+                B = socket_->ReadShort();
+                off_canvas_->SetPixel(x, y, R, G, B);
+            }
+        }
     }
 
     void LEDManager::Update()

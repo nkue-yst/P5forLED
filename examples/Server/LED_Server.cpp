@@ -1,6 +1,6 @@
 /*****
  * LED_Server.cpp
- * 2020/12/23
+ * 2021/02/04
  * 
  * Copyright (C) 2020 Yoshito Nakaue.
  *****/
@@ -10,7 +10,7 @@
 /** fill led with single color **/
 int main()
 {
-    p5led::LEDManager *led = new p5led::LEDManager();
+    p5led::LEDManager *led = new p5led::LEDManager(50, true);
 
     led->run();
 

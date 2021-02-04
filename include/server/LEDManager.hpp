@@ -1,6 +1,6 @@
 /*****
  * LEDManager.hpp
- * 2021/01/02
+ * 2021/02/04
  * 
  * Copyright (C) 2020 Yoshito Nakaue.
  *****/
@@ -14,14 +14,15 @@ namespace p5led
     class LEDManager
     {
     public:
-        LEDManager(int brightness = 50);
+        LEDManager(int brightness = 50, bool debug = false);
         ~LEDManager();
 
         void run()
         {
+            bool isRunning = true;
             socket_->Listen();
             
-            while (1)
+            while (isRunning)
             {
                 switch (socket_->ReadChar())
                 {
@@ -30,6 +31,12 @@ namespace p5led
                     break;
                 case 'S':
                     SetPixel();
+                    break;
+                case 'D':
+                    DrawFromP5();
+                    break;
+                case 'Q':
+                    isRunning = false;
                     break;
                 default:
                     break;
@@ -48,6 +55,8 @@ namespace p5led
          **/
         void SetPixel();
 
+        void DrawFromP5();
+
         /**
          * Update matrix
          **/
@@ -56,6 +65,8 @@ namespace p5led
     private:
         rgb_matrix::RGBMatrix *matrix_;
         rgb_matrix::FrameCanvas *off_canvas_;
+
+        bool debug_;
 
         Socket *socket_;
     };

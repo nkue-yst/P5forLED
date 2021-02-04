@@ -40,6 +40,6 @@ namespace p5led
         socklen_t length_;
 
     public:
-        int16_t rcv_buf_[16*3*32*32+32*32];
+        int16_t rcv_buf_[3*64*64];
     };
 }
