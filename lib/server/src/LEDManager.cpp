@@ -1,6 +1,6 @@
 /*****
  * LEDManager.cpp
- * 2021/01/20
+ * 2021/02/05
  * 
  * Copyright (C) 2020 Yoshito Nakaue.
  *****/
@@ -58,7 +58,7 @@ namespace p5led
         if (debug_)
         {
             std::cout << "SetPixel() -> x:" << x << ", y:" << y << ", R:" << R
-                  << ", G:" << G << ", B:" << B << std::endl;
+                    << ", G:" << G << ", B:" << B << std::endl;
         }
 
         off_canvas_->SetPixel(x, y, R, G, B);
@@ -70,16 +70,26 @@ namespace p5led
         int16_t G = 0;
         int16_t B = 0;
 
+        off_canvas_->Clear();
+
         for (int y = 0; y < 32; y++)
         {
             for (int x = 0; x < 32; x++)
             {
-                R = socket_->ReadShort();
-                G = socket_->ReadShort();
-                B = socket_->ReadShort();
-                off_canvas_->SetPixel(x, y, R, G, B);
+                G = socket_->ReadByte();
+                B = socket_->ReadByte();
+                R = socket_->ReadByte();
+
+                if (!(R == 0 && G == 0 && B == 0))
+                {
+                    off_canvas_->SetPixel(x, y, R, G, B);
+                    if (debug_)
+                        std::cout << "SetPixel() -> x:" << x << ", y:" << y << ", R:" << R
+                                << ", G:" << G << ", B:" << B << std::endl;
+                }
             }
         }
+        std::cout << "Complete draw frame" << std::endl;
     }
 
     void LEDManager::Update()

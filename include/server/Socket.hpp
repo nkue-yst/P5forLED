@@ -30,6 +30,8 @@ namespace p5led
          **/
         int16_t ReadShort();
 
+        int16_t ReadByte();
+
     private:
         struct sockaddr_in addr_;
         struct sockaddr_in client_;
@@ -40,6 +42,6 @@ namespace p5led
         socklen_t length_;
 
     public:
-        int16_t rcv_buf_[3*64*64];
+        int16_t rcv_buf_[256];
     };
 }

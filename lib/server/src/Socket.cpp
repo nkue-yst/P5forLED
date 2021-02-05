@@ -24,7 +24,6 @@ namespace p5led
     {
         memset(&addr_, 0, sizeof(addr_));
         memset(&client_, 0, sizeof(client_));
-        memset(rcv_buf_, 0, sizeof(rcv_buf_));
         sock_ = socket(AF_INET, SOCK_STREAM, 0);
     }
 
@@ -64,5 +63,11 @@ namespace p5led
         read(sock_rcv_, rcv_buf_, sizeof(int16_t));
 
         return rcv_buf_[0];
+    }
+
+    int16_t Socket::ReadByte()
+    {
+        read(sock_rcv_, rcv_buf_, sizeof(int8_t));
+        return (rcv_buf_[0] & 0xFF);
     }
 }

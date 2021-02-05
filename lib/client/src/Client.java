@@ -1,6 +1,6 @@
 /*****
  * Client.java
- * 2021/02/04
+ * 2021/02/05
  * 
  * Copyright (C) 2020 Yoshito Nakaue.
  *****/
@@ -8,14 +8,16 @@
 package p5led.client;
 
 import java.io.DataOutputStream;
+import java.io.InputStream;
 import java.net.Socket;
 
 import processing.core.*;
 
 public class Client extends PApplet {
-    public Client(String ip_address, Integer port_number) {
+    public Client(String ip_address, Integer port_number, PApplet papplet) {
         addr = ip_address;
         port = port_number;
+        p = papplet;
         
         try {
             socket = new Socket(addr, port);
@@ -26,6 +28,10 @@ public class Client extends PApplet {
 
     public void closeSocket() {
         try {
+            Thread.sleep(1000);
+            DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+            dos.writeChar('Q');
+            dos.close();
             socket.close();
         } catch (Exception e) {
 
@@ -58,17 +64,31 @@ public class Client extends PApplet {
         }
     }
 
-    public void DrawFromP5() {
-        updatePixels();
-        loadPixels();
+    public void DrawFromP5(float P5fps, float LEDfps) {
+        if (p.frameCount % (P5fps * LEDfps) != 0)
+            return;
 
         try {
             DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+            p.loadPixels();
+            p.updatePixels();
+            int[] c = p.pixels;
+
+            int r[] = new int[32*32];
+            int g[] = new int[32*32];
+            int b[] = new int[32*32];
+
+            for (int i = 0; i < 32 * 32; i++) {
+                r[i] = (int)p.red(c[i]);
+                g[i] = (int)p.green(c[i]);
+                b[i] = (int)p.blue(c[i]);
+            }
+
             dos.writeChar('D');
             for (int i = 0; i < 32 * 32; i++) {
-                dos.writeShort((short)red(pixels[i]));
-                dos.writeShort((short)green(pixels[i]));
-                dos.writeShort((short)blue(pixels[i]));
+                dos.writeByte((byte)r[i]);
+                dos.writeByte((byte)g[i]);
+                dos.writeByte((byte)b[i]);
             }
         } catch (Exception e) {
 
@@ -95,4 +115,6 @@ public class Client extends PApplet {
     private Socket  socket;
 
     private String  send_buf;
+
+    private PApplet p;
 }
