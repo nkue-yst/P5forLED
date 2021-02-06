@@ -43,5 +43,6 @@ namespace p5led
 
     public:
         int16_t rcv_buf_[256];
+        int8_t buf_bytes[256];
     };
 }

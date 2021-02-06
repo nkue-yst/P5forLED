@@ -1,6 +1,6 @@
 /*****
  * LED_Client.java
- * 2021/02/05
+ * 2021/02/06
  * 
  * Copyright (C) 2020 Yoshito Nakaue.
  *****/
@@ -12,6 +12,12 @@ public class LED_Client {
         Client led = new Client("127.0.0.1", 13579, null);
 
         led.Shobon();
+
+        try {
+            Thread.sleep(10000);
+        } catch (Exception e) {
+
+        }
 
         led.closeSocket();
     }

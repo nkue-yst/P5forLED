@@ -14,10 +14,12 @@ import java.net.Socket;
 import processing.core.*;
 
 public class Client extends PApplet {
-    public Client(String ip_address, Integer port_number, PApplet papplet) {
+    public Client(PApplet papplet, String ip_address, Integer port_number, Boolean is_movie) {
         addr = ip_address;
         port = port_number;
         p = papplet;
+        p.frameRate(30);
+        this.is_movie = is_movie;
         
         try {
             socket = new Socket(addr, port);
@@ -64,8 +66,8 @@ public class Client extends PApplet {
         }
     }
 
-    public void DrawFromP5(float P5fps, float LEDfps) {
-        if (p.frameCount % (P5fps * LEDfps) != 0)
+    public void DrawFromP5(float LEDfps) {
+        if ((p.frameCount % (30 * LEDfps) != 0) && is_movie == true)
             return;
 
         try {
@@ -95,11 +97,15 @@ public class Client extends PApplet {
         }
     }
 
+    public void DrawFromP5() {
+        this.DrawFromP5(0);
+    }
+
     public void Shobon() {
-        SetPixel(2, 3, 0, 255, 0);  SetPixel(2, 4, 0, 255, 0);  SetPixel(2, 5, 0, 255, 0);
-        SetPixel(2, 6, 0, 255, 0);  SetPixel(3, 2, 0, 255, 0);  SetPixel(3, 7, 0, 255, 0);
-        SetPixel(5, 3, 0, 255, 0);  SetPixel(8, 4, 0, 255, 0);  SetPixel(8, 5, 0, 255, 0);
-        SetPixel(9, 4, 0, 255, 0);  SetPixel(9, 5, 0, 255, 0);  SetPixel(12, 5, 0, 255, 0);
+        SetPixel( 2, 3, 0, 255, 0);  SetPixel( 2, 4, 0, 255, 0);  SetPixel( 2, 5, 0, 255, 0);
+        SetPixel( 2, 6, 0, 255, 0);  SetPixel( 3, 2, 0, 255, 0);  SetPixel( 3, 7, 0, 255, 0);
+        SetPixel( 5, 3, 0, 255, 0);  SetPixel( 8, 4, 0, 255, 0);  SetPixel( 8, 5, 0, 255, 0);
+        SetPixel( 9, 4, 0, 255, 0);  SetPixel( 9, 5, 0, 255, 0);  SetPixel(12, 5, 0, 255, 0);
         SetPixel(12, 6, 0, 255, 0);  SetPixel(13, 4, 0, 255, 0);  SetPixel(13, 7, 0, 255, 0);
         SetPixel(14, 7, 0, 255, 0);  SetPixel(15, 5, 0, 255, 0);  SetPixel(15, 6, 0, 255, 0);
         SetPixel(16, 7, 0, 255, 0);  SetPixel(17, 4, 0, 255, 0);  SetPixel(17, 7, 0, 255, 0);
@@ -107,12 +113,14 @@ public class Client extends PApplet {
         SetPixel(21, 5, 0, 255, 0);  SetPixel(22, 4, 0, 255, 0);  SetPixel(22, 5, 0, 255, 0);
         SetPixel(24, 2, 0, 255, 0);  SetPixel(25, 3, 0, 255, 0);  SetPixel(27, 2, 0, 255, 0);
         SetPixel(27, 7, 0, 255, 0);  SetPixel(28, 3, 0, 255, 0);  SetPixel(28, 4, 0, 255, 0);
-        SetPixel(28, 5, 0, 255, 0);  SetPixel(28, 6, 0, 255, 0);  SetPixel(6, 2, 0, 255, 0);
+        SetPixel(28, 5, 0, 255, 0);  SetPixel(28, 6, 0, 255, 0);  SetPixel( 6, 2, 0, 255, 0);
     }
     
     private String  addr;
     private Integer port;
     private Socket  socket;
+
+    private Boolean is_movie;
 
     private String  send_buf;
 

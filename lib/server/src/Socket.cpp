@@ -67,7 +67,7 @@ namespace p5led
 
     int16_t Socket::ReadByte()
     {
-        read(sock_rcv_, rcv_buf_, sizeof(int8_t));
-        return (rcv_buf_[0] & 0xFF);
+        read(sock_rcv_, buf_bytes, sizeof(int8_t));
+        return (buf_bytes[0] & 0xFF);
     }
 }
