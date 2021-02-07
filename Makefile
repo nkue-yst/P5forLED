@@ -1,6 +1,5 @@
 all : install
 	$(MAKE) -C ./examples/Server
-	$(MAKE) -C ./examples/Client
 
 install :
 	$(MAKE) install -C ./lib/server/src
@@ -12,6 +11,5 @@ uninstall :
 
 clean : uninstall
 	$(MAKE) clean -C ./examples/Server
-	$(MAKE) clean -C ./examples/Client
 	$(MAKE) clean -C ./lib/server/src
 	$(MAKE) clean -C ./lib/client/src

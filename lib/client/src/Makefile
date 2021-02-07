@@ -2,7 +2,6 @@ all : Client
 
 install : Client
 	jar cvf ../p5led.jar ../p5led
-	cp ../p5led.jar ../../../examples/Client/
 	mkdir -p ~/sketchbook/libraries/p5led
 	mkdir -p ~/sketchbook/libraries/p5led/library
 	cp ../p5led.jar ~/sketchbook/libraries/p5led/library
