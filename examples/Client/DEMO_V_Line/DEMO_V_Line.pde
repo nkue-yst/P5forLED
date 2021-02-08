@@ -1,6 +1,6 @@
 /*****
- * DEMO_Line.pde
- * 2021/02/06
+ * DEMO_V_Line.pde
+ * 2021/02/08
  *
  * Copyright (C) 2021 Yoshito Nakaue
  *****/

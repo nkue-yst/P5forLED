@@ -1,6 +1,6 @@
 /*****
  * Client.java
- * 2021/02/05
+ * 2021/02/08
  * 
  * Copyright (C) 2020 Yoshito Nakaue.
  *****/
@@ -30,7 +30,7 @@ public class Client extends PApplet {
 
     public void closeSocket() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
             DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
             dos.writeChar('Q');
             dos.close();
@@ -67,7 +67,7 @@ public class Client extends PApplet {
     }
 
     public void DrawFromP5(float LEDfps) {
-        if ((p.frameCount % (30 * LEDfps) != 0) && is_movie == true)
+        if ((p.frameCount % (30 * LEDfps) != 0) && is_movie)
             return;
 
         try {
@@ -99,6 +99,12 @@ public class Client extends PApplet {
 
     public void DrawFromP5() {
         this.DrawFromP5(0);
+    }
+
+    public void DrawImage(PImage img, int x, int y) {
+        img.resize(32, 32);
+        p.image(img, x, y);
+        this.DrawFromP5();
     }
 
     public void Shobon() {
