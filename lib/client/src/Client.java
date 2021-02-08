@@ -19,6 +19,7 @@ public class Client extends PApplet {
         port = port_number;
         p = papplet;
         p.frameRate(30);
+        p.background(0);
         this.is_movie = is_movie;
         
         try {
